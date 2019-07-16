@@ -2,7 +2,7 @@
  ---
 1. **基本get形式**
 http://网址/index.php?m=分组&c=控制器&a=操作方法
-该方式是最底层的get形式、传统的参数传递方式，不时尚、不安全。
+该方式是最底层的get形式、传统的参数传递方式，不时尚、不安全。\n
 2. **pathinfo路径形式[默认方式]**
 http://网址/index.php/分组/控制器/操作方法
 http://网址/index.php/Home/Index/advert
