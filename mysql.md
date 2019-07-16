@@ -53,4 +53,4 @@ ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that 
 3. 删除字段</br>
 `alter table article_easyui drop id;`
 
-- 引用 https://blog.csdn.net/weixin_41000825/article/details/79103252`
+- 引用 [https://blog.csdn.net/weixin_41000825/article/details/79103252](https://blog.csdn.net/weixin_41000825/article/details/79103252)
