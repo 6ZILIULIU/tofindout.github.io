@@ -1,37 +1,56 @@
-## Welcome to GitHub Pages
+# <center>记·外键之创建、删除</center>
+---
+今天学习的是多表联合查询不过首先需要创建一个外键，创建完不对又要删，但这就一时间难到了，查资料，最后解决了
+# 外键创建步骤
 
-You can use the [editor on GitHub](https://github.com/6ZILIULIU/tofindout.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+1. 从表要新建一个同名同类型的字段
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+    `ALTER TABLE table_name ADD 字段 字段属性`
 
-### Markdown
+2. 再把该字段加入外键
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    `ALTER TABLE table_name ADD FOREIGN KEY(字段) REFERENCES 关联表名(关联字段);`
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+需要注意的是以下几点：
+- 外键创建必须是**唯一性**字段，否则会报错如下：
+```
+MariaDB [blog]> alter table article_easyui add constraint `userName` foreign key `userName` references users_easyui(userName);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'references users_easyui(userName)' at line 1
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+- 设置唯一性需要以下sql语句：
 
-### Jekyll Themes
+	`ALTER TABLE `table_name` ADD UNIQUE(`user_ame`);`
+- 外键删除需要先删除约束constraint
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/6ZILIULIU/tofindout.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+    `ALTER TABLE table_name DROP FOREIGN KEY `foreign_name`;`
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+
+# **外键删除步骤**
+
+1. 查看 表内部的字段
+`show create table table_name;`
+查询结果如下：
+```
+------------------------------------------------+
+| article_easyui | CREATE TABLE `article_easyui` (
+  `article_id` int(11) unsigned NOT NULL,
+  `article_title` int(11) NOT NULL,
+  `article_content` int(11) NOT NULL,
+  `article_timestamp` int(11) NOT NULL,
+  `userName` varchar(16) NOT NULL,
+  PRIMARY KEY (`article_id`),
+  KEY `userName` (`userName`),
+  CONSTRAINT `article_easyui_ibfk_1` FOREIGN KEY (`userName`) REFERENCES `users_easyui` (`userName`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++----------------+--------------------------
+```
+2. 删除约束</br>
+`alter table article_easyui drop foreign key article_easyui_ibfk_1`
+
+3. 删除字段</br>
+`alter table article_easyui drop id;`
+
+- 引用 https://blog.csdn.net/weixin_41000825/article/details/79103252`
