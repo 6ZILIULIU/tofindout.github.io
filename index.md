@@ -6,3 +6,6 @@ be water ,my friend
 
 ## php
 1. [tp框架的4中路由形式](https://6ziliuliu.github.io/whatwhyhow.github.io/tp1)
+
+## easyui
+1. [easyui-text如何获得焦点](https://6ziliuliu.github.io/whatwhyhow.github.io/easyui1)
