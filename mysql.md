@@ -1,3 +1,4 @@
+[<--](https://6ziliuliu.github.io/whatwhyhow.github.io/mysql)
 # <center>记·外键之创建、删除</center>
 ---
 今天学习的是多表联合查询不过首先需要创建一个外键，创建完不对又要删，但这就一时间难到了，查资料，最后解决了
