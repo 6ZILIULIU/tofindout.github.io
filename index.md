@@ -9,3 +9,6 @@ be water ,my friend
 
 ## easyui
 1. [easyui-text如何获得焦点](https://6ziliuliu.github.io/whatwhyhow.github.io/easyui1)
+
+## cmd
+1. [如何删除文件夹或文件](https://6ziliuliu.github.io/whatwhyhow.github.io/cmd.md)
