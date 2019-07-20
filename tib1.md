@@ -1,4 +1,4 @@
-<-- [返回](tib) 
+[<--返回](https://6ZILIULIU.github.io/whatwhyhow.github.io/tib1.mdtib) 
 
 # **电机**
 ---
