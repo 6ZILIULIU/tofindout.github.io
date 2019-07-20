@@ -14,4 +14,4 @@ be water ,my friend
 1. [如何删除文件夹或文件](https://6ziliuliu.github.io/whatwhyhow.github.io/cmd)
 
 ## tib
-1. [直流电机](https://6ziliuliu.github.io/whatwhyhow.github.io/直流电机)
+1. [直流电机](https://6ziliuliu.github.io/whatwhyhow.github.io/tib1)
