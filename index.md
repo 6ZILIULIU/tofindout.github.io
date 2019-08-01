@@ -15,3 +15,6 @@ be water ,my friend
 
 ## tib
 1. [直流电机](https://6ziliuliu.github.io/whatwhyhow.github.io/tib1)
+
+## git
+1. [how to use it](https://6ziliuliu.github.io/whatwhyhow.github.io/git1)
