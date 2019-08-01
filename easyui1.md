@@ -1,4 +1,4 @@
-[<- 返回](https://6ziliuliu.github.io/whatwhyhow.github.io/index)
+[<- 返回](https://6ziliuliu.github.io/whatwhyhow/index)
 
 # easyui-text如何获得焦点
 ```

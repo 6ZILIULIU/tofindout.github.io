@@ -1,4 +1,4 @@
-[<--](https://6ziliuliu.github.io/whatwhyhow.github.io/index.md)
+[<--](https://6ziliuliu.github.io/whatwhyhow/index)
 
 # **how to use git**
 

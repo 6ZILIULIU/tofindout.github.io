@@ -1,4 +1,4 @@
-[<-- 返回](https://6ziliuliu.github.io/whatwhyhow.github.io/index)
+[<-- 返回](https://6ziliuliu.github.io/whatwhyhow/index)
 # **tp框架路由共有4种形式**
  ---
 1. **基本get形式**

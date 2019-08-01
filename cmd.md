@@ -1,4 +1,4 @@
-<-- [返回](https://6ZILIULIU.github.io/whatwhyhow.github.io/index)
+<-- [返回](https://6ZILIULIU.github.io/whatwhyhow/index)
 
 # **how to remove folder or file in winSystem**
 ---
