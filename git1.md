@@ -30,3 +30,4 @@
 
 ## git push --set-upstream
 
+## git config credential.helper store
