@@ -1,0 +1,44 @@
+解决PHP7无法监听9000端口问题/502错误解决办法
+2018年11月16日 11:11:06 Moshow郑锴 阅读数 564
+ 版权声明：powered by 大狼狗郑锴/Moshow魔手 https://blog.csdn.net/moshowgame/article/details/84135977
+问题背景
+昨晚帮配置nginx+php服务的时候，发生了一个奇怪的事情
+netstat -anp|grep 9000查看9000端口，一直没有监听，于是nginx无法通过fastcgi来代理php请求。一直都是502
+
+原因分析
+因为php7升级了配置，默认不再监听9000端口了，监听的是/run/php/php7.0-fpm.sock
+
+解决方案
+找到/etc/php/7.0/fpm/pool.d/www.conf，用;注释掉sock监听的方式，增加9000端口监听
+;listen = /run/php/php7.0-fpm.sock
+listen = 9000
+1
+2
+重启php7，可以service php7.0-fpm restart或者/etc/init.d/php7.0-fpm restart的方式重启。
+
+检查nginx配置，看下是正确
+
+server{
+		listen       80;
+	    server_name   localhost;
+	    root   "/www/xxxx/";
+	    location / {
+			 index  index.php index.html index.htm;
+			 autoindex  off;
+			 if (!-e $request_filename) {
+				rewrite  ^(.*)$  /index.php?s=$1  last;
+				break;
+          	}
+		}
+       # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+       location ~ \.php(.*)$  {
+           fastcgi_pass   127.0.0.1:9000;
+           #fastcgi_pass unix:/var/run/php7.0-fpm.sock;
+           fastcgi_index  index.php;
+           fastcgi_split_path_info  ^((?U).+\.php)(/?.+)$;
+           fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+           fastcgi_param  PATH_INFO  $fastcgi_path_info;
+           fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_path_info;
+           include        fastcgi_params;
+       }
+	}

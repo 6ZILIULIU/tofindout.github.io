@@ -1,0 +1,31 @@
+将网站部署到服务器上出现_STORAGE_WRITE_ERROR_问题
+用的thinkphp3.2的框架，在本地运行没有问题，部署到服务器上（基于centos的LAMP环境）即报错，报错信息如下（完全看不懂...）：
+求大神帮帮忙~~~~(>_<)~~~~ 
+:(
+_STORAGE_WRITE_ERROR_:./Application/Runtime/Cache/Home/f8995a0e1afcdadc637612fae5a3b585.php
+错误位置
+FILE: /var/www/html/shoppingback/ThinkPHP/Library/Think/Storage/Driver/File.class.php 　LINE: 47
+TRACE
+#0 /var/www/html/shoppingback/ThinkPHP/Library/Think/Storage/Driver/File.class.php(47): E('_STORAGE_WRITE_...')
+#1 [internal function]: Think\Storage\Driver\File->put('./Application/R...', ' #2 /var/www/html/shoppingback/ThinkPHP/Library/Think/Storage.class.php(37): call_user_func_array(Array, Array)
+#3 /var/www/html/shoppingback/ThinkPHP/Library/Think/Template.class.php(110): Think\Storage::__callstatic('put', Array)
+#4 /var/www/html/shoppingback/ThinkPHP/Library/Think/Template.class.php(110): Think\Storage::put('./Application/R...', ' #5 /var/www/html/shoppingback/ThinkPHP/Library/Think/Template.class.php(76): Think\Template->loadTemplate('./Application/H...', '')
+#6 /var/www/html/shoppingback/ThinkPHP/Library/Behavior/ParseTemplateBehavior.class.php(32): Think\Template->fetch('./Application/H...', Array, '')
+#7 /var/www/html/shoppingback/ThinkPHP/Library/Think/Hook.class.php(119): Behavior\ParseTemplateBehavior->run(Array)
+#8 /var/www/html/shoppingback/ThinkPHP/Library/Think/Hook.class.php(89): Think\Hook::exec('Behavior\ParseT...', 'view_parse', Array)
+#9 /var/www/html/shoppingback/ThinkPHP/Library/Think/View.class.php(124): Think\Hook::listen('view_parse', Array)
+#10 /var/www/html/shoppingback/ThinkPHP/Library/Think/View.class.php(72): Think\View->fetch('productEdit', '', '')
+#11 /var/www/html/shoppingback/ThinkPHP/Library/Think/Controller.class.php(56): Think\View->display('productEdit', '', '', '', '')
+#12 /var/www/html/shoppingback/Application/Home/Controller/IndexController.class.php(6): Think\Controller->display('productEdit')
+#13 [internal function]: Home\Controller\IndexController->index()
+#14 /var/www/html/shoppingback/ThinkPHP/Library/Think/App.class.php(155): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#15 /var/www/html/shoppingback/ThinkPHP/Library/Think/App.class.php(193): Think\App::exec()
+#16 /var/www/html/shoppingback/ThinkPHP/Library/Think/Think.class.php(120): Think\App::run()
+#17 /var/www/html/shoppingback/ThinkPHP/ThinkPHP.php(96): Think\Think::start()
+#18 /var/www/html/shoppingback/index.php(24): require('/var/www/html/s...')
+#19 {main}
+ThinkPHP3.2.2 { Fast & Simple OOP PHP Framework } -- [ WE CAN DO IT JUST THINK ]
+
+解决方案对 Runtime 文件夹设置 777 权限
+
+sudo chmod -R 777 Runtime

@@ -1,0 +1,192 @@
+*********************************************************************
+·定义静态方法和实例方法
+
+    //定义一个类
+    function Aclass{
+    }
+
+ //2、给类添加静态方法
+    Aclass.staticMethod = function(){
+        //..
+    }
+//3、静态方法的调用
+    Aclass.staticMethod();
+//4、添加一个实例方法
+    Aclass.prototype.instanceMethod = function(){
+        //..
+    }
+//5、实例方法的调用
+    var a = new Aclass();
+    a.instanceMethod();
+
+
+
+**********************************************************************
+·jQuery的静态方法 用$.method()调用
+
+    1、each()和map()
+    /*
+    *遍历数组的两个方法each和map
+    *arr参数可以是数组也可以是对象
+    *原生js的forEach和map函数只能遍历数组不能遍历对象（伪数组）
+    */
+    var arr = [1,2,5,7,2];
+    var obj = {0:1,1:3,2:5};
+
+    //默认返回遍历的每一个组数和对象的index和value
+    $.each(arr,function(index,value){
+        console.log(index,value)
+    })
+
+
+    //默认无返回值
+    $.map(arr,function(value,index){
+        console.log(index,value)
+        //支持返回值的操作
+        return value+index;
+    })
+
+    2、trim()
+    /*
+    *用于消除字符串中所有的空格防止恶意代码
+    */
+
+    3、isWindow()、isArray()、isFunction()
+    //判断是否为窗口、数组、函数
+    //·jQuery是一个函数
+    function test(){};
+    test();
+    //等于下面的函数
+    //这是一个立即执行函数↓
+    (function test(){
+
+    })();
+
+    4、holdReady()
+    //用于暂停入口函数的执行
+    holdReady(true);
+    $(document).ready(function(){
+        //..
+    });
+
+    var btn = document.getElementsByTagName('button')[0];
+    btn.onclick = function(){
+        holdReady(false);
+    }
+
+
+
+**********************************************************************
+·jQuery的内容选择器
+
+    1、empty选择既没有子元素也没有文本内容
+        var $div = $("div:empty");
+    2、parent选择有子元素或者有文本内容的
+        var $div = $("div:empty");
+    3、contains选择有指定内容的
+        var $div = $("div:contains("文本内容相同")");
+    4、has选择有指定子元素的的
+        var $div = $("div:has("TAG")");
+
+
+***********************************************************************
+·jQuery操作属性
+
+    1、原生js操作DOM属性的方法
+        var span = document.getElementsByTagName("span")[0];
+        span.setAttribute("name","zhangsan");
+        DOM元素.setAttribute/getAttribute("属性名称","值");
+    
+    
+    2、jQuery操作attr方法
+        $("TAG").attr("src");                                   //获取所有TAG标签src属性(且只返回第一个节点属性)
+        $("TAG").attr("src","test.jpg");                        //设置所有TAG标签src属性为test.jpg，假如没有指定的属性节点就新增一个
+        $("TAG").attr({src:"test.jpg",alt:"testImg"});          //设置所有TAG标签的src和alt         假如没有指定的属性节点就新增一个
+        $("TAG").attr("title",function(){ return this.src});    //设置title属性 <= src属性          假如没有指定的属性节点就新增一个
+ 
+
+    3、jQuery操作removeAttr方法
+    
+        HTML 代码:
+        <img src="test.jpg"/>
+
+        jQuery 代码:
+        $("img").removeAttr("src");         //将指定属性节点删除，若需要删除多个属性节点则以空格分开即可
+
+        结果:
+        [ <img /> ]
+
+    4、jQuery操作prop方法
+        
+        可以参考attr的操作方法，但仅为两种属性时
+        attr单参数返回的是属性或undefined
+        prop单参数返回的是true或false
+        另外官方推荐在属性节点仅为两种属性，如checked、selected或者disabled使用prop()，其他使用attr()
+
+
+
+
+
+
+
+
+
+
+
+
+**********************************************************************************
+**********************************************************************************
+**********************************************************************************
+
+·ajax部分
+
+    步骤：
+        1、创建异步对象
+        2、设置请求方式和请求地址
+        3、发送请求
+        4、监听请求状态的变化
+        5、操作数据
+
+
+
+
+**************************************************************************************
+**************************************************************************************
+*****************ajax两种提交方法（原生js的xmlhttprequest对象方法和$.ajax）**************    
+    $.ajax({
+        type :"post",
+        // dataType:'text',
+        url:"http://127.0.0.1/tp5_Blog/public/admin/Login/confirm",
+        data:{
+            name: $('#userName').val(),
+            password:$('#password').val()
+        },
+        success:function(r){
+            console.info(r);
+            
+        },
+        error:function(r){
+            console.log('fail'+ r);
+        }
+    });
+    
+    // if(window.XMLHttpRequest){
+    //     var xhr = new XMLHttpRequest;
+    // } else
+    // {
+    //     var xhr = new ActiveXObject;
+    // }
+    // xhr.open("POST","http://127.0.0.1/tp5_Blog/public/admin/Login/confirm",true);
+    // xhr.send();
+
+    // xhr.onreadystatechange=function()
+    // {
+    // if (xhr.readyState==4 && xhr.status==200)
+    //     {
+    //         console.log(xhr.responseText);
+    //     }
+    // }             
+    
+**************************************************************************************
+**************************************************************************************
+**************************************************************************************

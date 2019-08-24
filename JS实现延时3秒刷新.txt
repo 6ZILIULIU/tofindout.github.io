@@ -1,0 +1,7 @@
+JS实现延时3秒刷新
+2018年11月01日 175643 csdnluolei 阅读数 11474
+版权声明：本文为博主原创文章，转载请附上博文链接！ httpsblog.csdn.netcsdnluoleiarticledetails83624547
+setTimeout(function (){
+ 
+	window.location.reload();
+}, 3000);

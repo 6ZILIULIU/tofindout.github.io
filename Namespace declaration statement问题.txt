@@ -1,0 +1,5 @@
+Namespace declaration statement has to be the…
+
+这个问题是由于用windows文本编辑器导致的格式不兼容
+
+解决方法：本地编辑完重新用ftp上传文件，不要直接文本编辑文件

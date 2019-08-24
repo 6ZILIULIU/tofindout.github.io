@@ -1,0 +1,64 @@
+﻿创建远程连接用户
+
+创建格式如下：
+
+GRANT 【权限内容】 ON 【库名】.【表名】 TO 【用户名】@'【IP地址】' IDENTIFIED BY '【密码】' WITH GRANT OPTION;
+
+示例：赋予用户名为【MAO】，密码为【MIAOMIAO】的用户可以在任意设备上操作所有数据库表的权限
+
+GRANT ALL PRIVILEGES ON *.* TO MAO@'%' IDENTIFIED BY 'MIAOMIAO' WITH GRANT OPTION;
+解释一下每个地方该怎么填：
+
+【权限内容】
+
+赋予的权限	写法
+所有权限（增、删、改、查）	all privileges
+增	insert
+删	delete
+改	update
+查	select
+ 
+
+【库名】.【表名】
+
+被赋予权限的库表	写法
+全部库表	*.*
+某个库中的全部表（如eshop库中的所有表）	eshop.*
+某个库中的单个表（如eshop库中的user表）	eshop.user
+ 
+
+【用户名】和【密码】可自行设置，只要自己能记住就行了。
+
+ 
+
+【IP地址】
+
+可连接该数据库的设备	写法
+所有设备	%
+特定设备：填写这些设备的IP地址	例：192.168.83.1
+ 
+
+【小结】我配置的时候，到这一步就已经可以完成远程连接了。但是在参考其它关于这一问题的文章时，好多博主同时提到了一些后续步骤，虽然不知道是否真的有这个必要，但是还是附加在后面，以防万一。
+
+ 
+
+▍使命令立刻执行
+
+FLUSH PRIVILEGES;
+ 
+
+▍查询数据库用户
+
+SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user; 
+ 
+
+▍如果是Linux系统：修改配置文件
+
+打开vim /etc/mysql/my.cnf
+将bind-address = 127.0.0.1
+设置成bind-address = 0.0.0.0(设备地址)
+--------------------- 
+作者：颜值界扛把子 
+来源：CSDN 
+原文：https://blog.csdn.net/i_dont_know_a/article/details/80599898 
+版权声明：本文为博主原创文章，转载请附上博文链接！

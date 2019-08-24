@@ -1,0 +1,41 @@
+﻿location ~ \.php {
+		#根目录
+                root    /var/www/html;				
+                #nginx把文件传送到fpm监听地址 默认是啥sock
+		#/var/run/php/php7.0-fpm.sock;默认是监听这个，就在这个文件里修改
+		fastcgi_pass 127.0.0.1:9000;			
+                fastcgi_index index.php;
+                #配置cgi
+		include fastcgi_params;
+                include fastcgi.conf;
+                #这条是支持pathinfo模式/m/c/a
+		fastcgi_split_path_info ^(.+\.php)(/.*)$; 
+                #include snippets/fastcgi-php.conf;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+          }
+  
+  
+          location / {
+                 # First attempt to serve request as file, then
+                 # as directory, then fall back to displaying a 404.
+                 try_files $uri $uri/ = 404;
+          }       
+
+
+①  基本get形式
+http://网址/index.php?m=分组&c=控制器&a=操作方法
+该方式是最底层的get形式、传统的参数传递方式，不时尚、不安全。
+②  pathinfo路径形式[默认方式]
+http://网址/index.php/分组/控制器/操作方法
+http://网址/index.php/Home/Index/advert
+③  rewrite重写形式(伪静态技术)省略index.php入口文件
+    http://网址/分组/控制器/操作方法
+    http://网址/Home/Index/index
+④  兼容形式
+http://网址/index.php?s=/分组/控制器/操作方法
+http://网址/index.php?s=/Home/Index/advert
+--------------------- 
+作者：不负好时光1001 
+来源：CSDN 
+原文：https://blog.csdn.net/weixin_39768635/article/details/78195443 
+版权声明：本文为博主原创文章，转载请附上博文链接！          

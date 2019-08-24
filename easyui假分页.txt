@@ -1,0 +1,70 @@
+今天做假分页但是有个问题，总是显示第一页，是
+datagrid({ loadFilter: pagerFilter })
+我写成datagrid({ dataFilter: pagerFilter })
+以下是正确写法
+
+
+
+
+
+
+
+
+
+
+$.ajax({
+                    type:'post',
+                    url:"__MODULE__/Manage/getTableData",
+                    success:function(r){
+                        $('#dg').datagrid({ loadFilter: pagerFilter }).datagrid({ 
+                            singleSelect:false,
+                            toolbar:'#tb',
+                            fitColumns:true,
+                            pagination:true,
+                            fit:true,
+                            rownumbers:true,
+                            checkOnSelect:true,
+                            selectOnCheck:true,
+                            striped : true,
+                            pageNumber:1,        //初始页
+                            showFooter: true,
+                            nowrap: false, 
+                            data: r,     //加载数据 
+                        
+                        });  
+                    },error:function(){
+                        console.info('fail to get data');
+                    }
+                })
+            
+  
+// 分页数据的操作  
+    function pagerFilter(data) {  
+        if (typeof data.length == 'number' && typeof data.splice == 'function') {   // is array  
+            data = {  
+                total: data.length,  
+                rows: data  
+            }  
+        }  
+        var dg = $(this);  
+        var opts = dg.datagrid('options');  
+        var pager = dg.datagrid('getPager');  
+        pager.pagination({  
+            onSelectPage: function (pageNum, pageSize) {  
+                opts.pageNumber = pageNum;  
+                opts.pageSize = pageSize;  
+                pager.pagination('refresh', {  
+                    pageNumber: pageNum,  
+                    pageSize: pageSize  
+                });  
+                dg.datagrid('loadData', data);  
+            }  
+        });  
+        if (!data.originalRows) {  
+            data.originalRows = (data.rows);  
+        }  
+        var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);  
+        var end = start + parseInt(opts.pageSize);  
+        data.rows = (data.originalRows.slice(start, end));  
+        return data;  
+    }  

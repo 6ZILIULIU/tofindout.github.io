@@ -1,0 +1,28 @@
+服务器mysql怎么配置才能远程连接
+2018年04月15日 02:43:44 NPException 阅读数 6769
+版权声明：feixie https://blog.csdn.net/qq_36850813/article/details/79946235
+如何设置MYSQL服务器允许远程连接？如果你使用的与数据库不在同一台服务器上电脑，那么MySQL 服务器就需要允许远程链接，网站才能正常运行。那么如何设置MYSQL服务器允许远程连接呢？我想这是很多人都想提出的疑问，下面是如何设置MYSQL服务器允许远程连接？
+
+MySQL服务器的远程链接设置有两种方法：
+
+一、改表法。
+
+可能是你的帐号不允许从远程登陆，只能在localhost登录。这个时候只要在localhost的那台电脑，登入mysql后，更改 "mysql" 数据库里的 "user" 表里的 "host" 项，从"localhost"改把host更改为"%"
+
+a. bin/mysql -uroot -p密码
+
+b. use mysql----->show tables;------>select host, user from user;
+
+c.  update user set host = '%' where user = 'root';
+
+d.  flush privileges; 
+
+二、授权法。
+
+例如，你想myuser使用mypassword从任何主机连接到mysql服务器的话。
+
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%' IDENTIFIED BY 'mypassword' WITH GRANT OPTION;
+
+如果你想允许用户xiefei从ip为172.22.254.1的主机连接到mysql服务器，并使用123456作为密码 .
+
+GRANT ALL PRIVILEGES ON *.* TO 'xiefei'@'172.22.254.1' IDENTIFIED BY '123456' WITH GRANT OPTION;

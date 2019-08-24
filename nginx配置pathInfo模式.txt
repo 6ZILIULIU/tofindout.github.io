@@ -1,0 +1,38 @@
+配置nginx支持path_info模式
+
+fastcgi_split_path_info ^(.+\.php)(/.*)$; 
+fastcgi_param PATH_INFO $fastcgi_path_info; 
+
+
+简介：我们用thinkphp，CodeIgniter框架的时候，地址基本都是IP/index.php/group_controller？***的模式，通过index.php入口访问php文件
+
+这种模式是path_info模式，pathinfo 模式是index.ph/index/index 这种url格式，nginx默认是不支持的，我们需要配置下
+
+文件位置：/etc/nginx/nginx.conf
+
+原文地址：http://blog.csdn.net/tinico/article/details/18033573
+
+fastcgi模块自带了一个fastcgi_split_path_info指令专门用来解决此类问题的，该指令会根据给定的正则表达式来分隔URL，从而提取出脚本名和path info信息，使用这个指令可以避免使用if语句，配置更简单。
+另外判断文件是否存在也有更简单的方法，使用try_files指令即可。
+
+server { 
+... 
+location / { 
+index index.htm index.html index.php; 
+#如果文件不存在则尝试TP解析 
+try_files $uri /index.php$uri; 
+} 
+location ~ .+\.php($|/) { 
+root /var/www/html/website; 
+fastcgi_pass 127.0.0.1:9000; 
+fastcgi_index index.php; 
+
+#设置PATH_INFO，注意fastcgi_split_path_info已经自动改写了fastcgi_script_name变量， 
+#后面不需要再改写SCRIPT_FILENAME,SCRIPT_NAME环境变量，所以必须在加载fastcgi.conf之前设置 
+fastcgi_split_path_info ^(.+\.php)(/.*)$; 
+fastcgi_param PATH_INFO $fastcgi_path_info; 
+
+#加载Nginx默认"服务器环境变量"配置 
+include fastcgi.conf; 
+} 
+}

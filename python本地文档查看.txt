@@ -1,0 +1,12 @@
+python库文件文档的查看
+python库文件文档的查看
+
+ 
+
+第一步：cmd窗口输入：python -m pydoc -p 4567，后台运行
+
+
+
+ 
+
+第二步：浏览器中打开http://localhost:4567/
